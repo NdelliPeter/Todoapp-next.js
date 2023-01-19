@@ -7,44 +7,42 @@
   /* min-height: 100vh; */
 }
 
-.addTask{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .taskInput{
  display: flex;
  width:50vh;
  /* height: 2rem; */
 }
-.taskInput input{
-  width: 100%;
+#inputTask{
   height: 3rem;
   border: 0mm;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 5px;
   padding: 10px;
+ background-color: rgb(202, 201, 201);
 }
 
-.otherInput{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width:50vh;
 
-}
-.otherInput input{
+#otherInput{
   margin: 5px;
-  width: 35%;
   border: 0mm;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
+ background-color: rgb(202, 201, 201);
 }
 
-.addBtn button{
+#addBtn{
   border: 0mm;
-  width: 5rem;
-  height: 4rem;
-  border-radius: 10px;
+  height: 3rem;
+  border-radius: 5px;
+ background-color: blue;
+ color: white;
 }
+
+#list{
+  border-radius: 5px;
+  padding: 10px;
+  background-color: gray;
+  color: white;
+}
+

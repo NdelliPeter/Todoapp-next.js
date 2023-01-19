@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -17,19 +18,28 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>TODO LIST</h1>
-        <div className={styles.addTask}>
-          <div>
-            <div className={styles.taskInput}>
-              <input type={'string'} placeholder={'Input Task'} />
-            </div>
-            <div className={styles.otherInput}>
-              <input type={'date'} placeholder={'Date'} />
-              <input type={'time'} placeholder={'Start Time'} />
-              <input type={'time'} placeholder={'End Time'} />
-            </div>
+        <div className='container-fluid mt-5 d-flex justify-content-center align-items-center'>
+          <div className='row justify-content-center align-items-center'>
+            <input className='col-sm-8 col-md-8 col-lg-8 ' id={styles.inputTask} type={'string'} placeholder={'Input Task'} />
+            <button className='col-sm-2 col-md-2 col-lg-2' id={styles.addBtn}>ADD</button>
+
+              <input className='col-sm-4 col-md-2 col-lg-2' id={styles.otherInput} type={'date'} placeholder={'Date'} />
+              <input className='col-sm-4 col-md-2 col-lg-2' id={styles.otherInput} type={'time'} placeholder={'Start Time'} />
+              <input className='col-sm-4 col-md-2 col-lg-2' id={styles.otherInput} type={'time'} placeholder={'End Time'} />
           </div>
-          <div className={styles.addBtn}>
-            <button>ADD</button>
+
+        </div>
+
+
+
+        <div className='container-fluid p-3 mt-5'>
+          <div className='row justify-content-center align-items-center'>
+            <div className='col-sm-9 col-md-7 col-lg-7'>
+              <div className='card' id={styles.list}>
+                <text>lorem</text>
+              </div>
+
+            </div>
           </div>
         </div>
 
