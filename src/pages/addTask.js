@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from '@/styles/Home.module.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
 
@@ -35,6 +35,14 @@ export default function AddTask () {
     }
 
 
+    useEffect(() => {
+        /**
+         * On page load we need to check if todoData exist in the local storage and if it exist we get the value and set it to the todo value
+         */
+        const objectData =  localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
+        setTodo( objectData)
+        // console.log(objectData);
+    }, []);
 
 
     const submitTodo = (e) => {
@@ -46,26 +54,24 @@ export default function AddTask () {
             startTime: e.target.startTime.value,
             endTime: e.target.endTime.value
         }
-
-        const array= []
-        array.push(data)
+        todo.push(data);
 
 
-        let stringing = JSON.stringify(array)
-        localStorage.setItem(array, stringing)
-        console.log(localStorage)
+        
+        const stringData = JSON.stringify(todo)
+        setTodo(todo)
+        localStorage.setItem("todoData", stringData)
+
+        // const objectData =JSON.parse(localStorage.getItem("data"))
+        // setTodo(objectData)
+        // console.log(objectData)
+    }
+
+    function display(item) {
+        return [item.title, item.date, item.startTime, item.endTime].join("")
     }
 
 
-    const display = (e) => {
-        e.preventDefault()
-
-        setTodo({
-            submitTodo,
-            ...todo
-        })
-        localStorage.getItem('array')
-    }
 
     const list = () => {
         localStorage.getItem('data')
@@ -74,7 +80,7 @@ export default function AddTask () {
     return (
         <div>
             <div className='container-fluid mt-5 d-flex justify-content-center align-items-center'>
-                <form id='test' className='row justify-content-center align-items-center' name='myForm'  onSubmit={submitTodo}>
+                <form id='test' className='row justify-content-center align-items-center' name='myForm' onSubmit={submitTodo}>
                     <div className='row d-flex '>
                         <div className='col-sm-9 col-md-9 col-lg-9'>
                             <input 
@@ -127,22 +133,15 @@ export default function AddTask () {
             <div className='container-fluid p-3 mt-5'>
                     <div className='row justify-content-center align-items-center'>
                     <div className='col-sm-9 col-md-7 col-lg-9'>
-                        <div className='card' onChange={list} id={styles.list}>
-                            
-                        <ul>
-                            {
-
-                                todo.length >=1 ? todo.map((array, idx) =>{
-                                    return (
-                                        <div>
-                                            <li key={idx}>{array}</li>
-                                        </div>
-                                        
-                                    ) 
-                                })
-                                : 'Waiting for Task'
-                            }
-                        </ul>
+                        <div className='card' id={styles.list}>
+                            <ul>
+                                <div></div>
+                                <div>
+                                    {
+                                        todo.map(display)
+                                    }
+                                </div>
+                            </ul>
                         </div>
 
                     </div>
