@@ -47,5 +47,11 @@
 }
 
 ul.todo_list{
+  padding: 0px;
   list-style: none;
+}
+
+.listDisplay{
+  border-bottom: 1px solid white;
+  padding: 5px;
 }

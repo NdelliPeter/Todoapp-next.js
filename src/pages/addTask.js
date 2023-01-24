@@ -142,7 +142,9 @@ export default function AddTask () {
                                 <ul className={styles.todo_list}>
                                     {
                                         todo.length >=1 ? todo.map((todo, idx) =>{
-                                            return <li className={styles.listDisplay} key={idx}>{todo.title}</li>
+                                            return <li className={styles.listDisplay} key={idx}>
+                                                Task: {todo.title} <br/> 
+                                                Date:{todo.date} StartTime:{todo.startTime} EndTime:{todo.endTime} </li>
                                         })
                                         : 'Enter Task'
                                     }
