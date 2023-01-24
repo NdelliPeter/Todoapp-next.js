@@ -41,7 +41,7 @@ export default function AddTask () {
          */
         const objectData =  localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
         setTodo( objectData)
-        // console.log(objectData);
+        console.log(objectData);
     }, []);
 
 
@@ -54,12 +54,15 @@ export default function AddTask () {
             startTime: e.target.startTime.value,
             endTime: e.target.endTime.value
         }
-        todo.push(data);
+        let currentTodo =[data];
+        currentTodo = [...todo,...currentTodo]
+        // currentTodo.push(data);
 
-
-        
-        const stringData = JSON.stringify(todo)
-        setTodo(todo)
+            
+        console.log('htredfd');
+        console.log(currentTodo);
+        const stringData = JSON.stringify(currentTodo)
+        setTodo(currentTodo)
         localStorage.setItem("todoData", stringData)
 
         // const objectData =JSON.parse(localStorage.getItem("data"))
@@ -67,9 +70,9 @@ export default function AddTask () {
         // console.log(objectData)
     }
 
-    function display(item) {
-        return [item.title, item.date, item.startTime, item.endTime].join("")
-    }
+    // function display(item) {
+    //     return [item.title, item.date, item.startTime, item.endTime].join(" ")
+    // }
 
 
 
@@ -134,14 +137,18 @@ export default function AddTask () {
                     <div className='row justify-content-center align-items-center'>
                     <div className='col-sm-9 col-md-7 col-lg-9'>
                         <div className='card' id={styles.list}>
-                            <ul>
-                                <div></div>
-                                <div>
+                            <div></div>
+                            <div>
+                                <ul className={styles.todo_list}>
                                     {
-                                        todo.map(display)
+                                        todo.length >=1 ? todo.map((todo, idx) =>{
+                                            return <li className={styles.listDisplay} key={idx}>{todo.title}</li>
+                                        })
+                                        : 'Enter Task'
                                     }
-                                </div>
-                            </ul>
+                                </ul>
+                            </div>
+                            <div> </div>
                         </div>
 
                     </div>

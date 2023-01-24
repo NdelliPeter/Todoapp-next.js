@@ -46,3 +46,6 @@
   color: white;
 }
 
+ul.todo_list{
+  list-style: none;
+}
