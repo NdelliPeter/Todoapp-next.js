@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import AddTask from './addTask'
+import AddTask from '../components/addTask'
 // import List from '.list'
 
 
