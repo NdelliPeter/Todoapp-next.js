@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 10px;
   /* min-height: 100vh; */
 }
 
@@ -54,4 +54,11 @@ ul.todo_list{
 .listDisplay{
   border-bottom: 1px solid white;
   padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon{
+  font-size: xx-large;
+  font-weight: bold;
 }
