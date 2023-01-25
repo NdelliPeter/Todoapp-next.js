@@ -136,13 +136,11 @@ export default function AddTask () {
                                             return (
                                                 <div className={styles.listDisplay}>
                                                     <li  key={idx}>
-                                                    Task: {todo.title} <br/> 
-                                                    Date:{todo.date} StartTime:{todo.startTime} EndTime:{todo.endTime} </li>
+                                                    <b>Task:</b> {todo.title} <br/> 
+                                                    <b>Date:</b> {todo.date} <b>StartTime:</b> {todo.startTime} <b>EndTime:</b> {todo.endTime} </li>
                                                     <BsThreeDotsVertical className={styles.icon} /> 
                                                 </div>
-
                                             )
-                                                
                                         })
                                         : 'Enter Task'
                                     }
