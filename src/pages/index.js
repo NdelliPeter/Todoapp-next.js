@@ -22,6 +22,8 @@ export default function Home() {
     localStorage.setItem("todoData", stringData)
   }
 
+  
+
   useEffect(() => {
     /**
      * On page load we need to check if todoData exist in the local storage and if it exist we get the value and set it to the todo value

@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from '@/styles/Home.module.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 
@@ -40,7 +40,7 @@ export default function AddTask ({addTask}) {
     const submitTodo = (e) => {
         e.preventDefault();
         if (e.target.title.value == ''){
-            return 'Please add task'
+            alert('Please add task')
         }else{
             const data = {
                 title:e.target.title.value,
@@ -52,7 +52,12 @@ export default function AddTask ({addTask}) {
             addTask(data)
         }
         
-    }
+    } 
+
+
+
+
+
 
 
     return (

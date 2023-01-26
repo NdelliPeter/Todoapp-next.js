@@ -62,3 +62,22 @@ ul.todo_list{
   font-size: xx-large;
   font-weight: bold;
 }
+
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+
+.dropdown_content {
+  background-color: #f1f1f1;
+  color: black;
+  min-width: 65px;
+  border-radius: 3px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
