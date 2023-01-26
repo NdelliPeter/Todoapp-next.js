@@ -4,12 +4,32 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import AddTask from '../components/addTask'
-// import List from '.list'
+import TodoList from '../components/todoList'
+import { useState, useEffect } from 'react'
+
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const [todo, setTodo] = useState([]);
+  
+  const addTask=(data)=>{
+    const currentTodo = [...todo, data]
+    const stringData = JSON.stringify(currentTodo)
+    setTodo(currentTodo)
+    localStorage.setItem("todoData", stringData)
+  }
+
+  useEffect(() => {
+    /**
+     * On page load we need to check if todoData exist in the local storage and if it exist we get the value and set it to the todo value
+     */
+    const objectData =  localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
+    setTodo( objectData)
+    console.log(objectData);
+}, []);
   return (
     <>
       <Head>
@@ -20,9 +40,8 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>TODO LIST</h1>
-        <AddTask />
-        {/* <List /> */}
-
+        <AddTask addTask={addTask} />
+        <TodoList todo={todo} />
       </main>
     </>
   )

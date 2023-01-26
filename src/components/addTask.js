@@ -7,7 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 
 
-export default function AddTask () {
+export default function AddTask ({addTask}) {
 
 
     // const [inputTask, setInputTask] = useState('')
@@ -15,63 +15,44 @@ export default function AddTask () {
     // const [startTime, setStartTime] = useState('')
     // const [endTime, setEndTime] = useState('')
 
-    const [todo, setTodo] = useState([])
+    // const [todo, setTodo] = useState([])
 
-    // const handleTask = (task) =>{
-    //     task.preventDefault()
+    // // const handleTask = (task) =>{
+    // //     task.preventDefault()
 
-    //     setInputTask(task.target.title.value)
-    //     setInputDate(task.target.date.value)
-    //     setStartTime(task.target.startTime.value)
-    //     setEndTime(task.target.endTime.value)
+    // //     setInputTask(task.target.title.value)
+    // //     setInputDate(task.target.date.value)
+    // //     setStartTime(task.target.startTime.value)
+    // //     setEndTime(task.target.endTime.value)
 
-    //     todo.push({
-    //         title:{inputTask},
-    //         date:{inputDate},
-    //         startTime:{startTime},
-    //         endTime:{endTime}
-    //     });
+    // //     todo.push({
+    // //         title:{inputTask},
+    // //         date:{inputDate},
+    // //         startTime:{startTime},
+    // //         endTime:{endTime}
+    // //     });
 
-    // }
+    // // }
 
 
-    useEffect(() => {
-        /**
-         * On page load we need to check if todoData exist in the local storage and if it exist we get the value and set it to the todo value
-         */
-        const objectData =  localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
-        setTodo( objectData)
-        console.log(objectData);
-    }, []);
 
 
     const submitTodo = (e) => {
         e.preventDefault();
+        if (e.target.title.value == ''){
+            return 'Please add task'
+        }else{
+            const data = {
+                title:e.target.title.value,
+                date: e.target.date.value,
+                startTime: e.target.startTime.value,
+                endTime: e.target.endTime.value
+            }
 
-        const data = {
-            title:e.target.title.value,
-            date: e.target.date.value,
-            startTime: e.target.startTime.value,
-            endTime: e.target.endTime.value
+            addTask(data)
         }
-        // let currentTodo =[data];
-        const currentTodo = [...todo, data]
-        // currentTodo.push(data);
-
-            
-        console.log('htredfd');
-        console.log(currentTodo);
-        const stringData = JSON.stringify(currentTodo)
-        setTodo(currentTodo)
-        localStorage.setItem("todoData", stringData)
-
-        // const objectData =JSON.parse(localStorage.getItem("data"))
-        // setTodo(objectData)
-        // console.log(objectData)
+        
     }
-
-
-
 
 
     return (
@@ -124,31 +105,6 @@ export default function AddTask () {
             </div>
 
 
-            <div className='container-fluid p-3 mt-5'>
-                    <div className='row justify-content-center align-items-center'>
-                        <div className='col-sm-9 col-md-7 col-lg-9'>
-                            <div className='card' id={styles.list}>
-                                <div>
-                                    <ul className={styles.todo_list}>
-                                        {
-                                            todo.length >=1 ? todo.map((todo, idx) =>{
-                                                return (
-                                                    <div className={styles.listDisplay}>
-                                                        <li  key={idx}>
-                                                        <b>Task:</b> {todo.title} <br/> 
-                                                        <b>Date:</b> {todo.date} <b>StartTime:</b> {todo.startTime} <b>EndTime:</b> {todo.endTime} </li>
-                                                        <BsThreeDotsVertical className={styles.icon} /> 
-                                                    </div>
-                                                )
-                                            })
-                                            : 'Enter Task'
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
         </div>
     )
 } 
