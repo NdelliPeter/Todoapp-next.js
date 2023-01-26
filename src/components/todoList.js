@@ -44,9 +44,9 @@ function TodoList ({todo}) {
                                                             <DropdowonMenu.Trigger className={styles.dropbtn}><BsThreeDotsVertical className={styles.icon} /></DropdowonMenu.Trigger>
 
                                                             <DropdowonMenu.Content className={styles.dropdown_content}>
-                                                                <DropdowonMenu.Item>Done</DropdowonMenu.Item>
-                                                                <DropdowonMenu.Item>Edit</DropdowonMenu.Item>
-                                                                <DropdowonMenu.Item>Delet</DropdowonMenu.Item>
+                                                                <DropdowonMenu.Item className={styles.Item}>Done</DropdowonMenu.Item>
+                                                                <DropdowonMenu.Item className={styles.Item}>Edit</DropdowonMenu.Item>
+                                                                <DropdowonMenu.Item className={styles.Item}>Delet</DropdowonMenu.Item>
                                                             </DropdowonMenu.Content>
                                                         </DropdowonMenu.Root>
                                                     </div>
