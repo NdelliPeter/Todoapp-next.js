@@ -10,35 +10,33 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 export default function AddTask ({addTask}) {
 
 
-    // const [inputTask, setInputTask] = useState('')
-    // const [inputDate, setInputDate] = useState('')
-    // const [startTime, setStartTime] = useState('')
-    // const [endTime, setEndTime] = useState('')
+    const [inputTask, setInputTask] = useState('')
+    const [inputDate, setInputDate] = useState('')
+    const [startTime, setStartTime] = useState('')
+    const [endTime, setEndTime] = useState('')
 
     // const [todo, setTodo] = useState([])
 
-    // // const handleTask = (task) =>{
-    // //     task.preventDefault()
+    // const inputTaskRef =useRef(null);
+    // const inputDateRef =useRef(null);
+    // const startTimeRef =useRef(null);
+    // const endTimeRef =useRef(null);
 
-    // //     setInputTask(task.target.title.value)
-    // //     setInputDate(task.target.date.value)
-    // //     setStartTime(task.target.startTime.value)
-    // //     setEndTime(task.target.endTime.value)
+    const handleTask = (task) =>{
+        console.log(handleTask);
+        task.preventDefault()
 
-    // //     todo.push({
-    // //         title:{inputTask},
-    // //         date:{inputDate},
-    // //         startTime:{startTime},
-    // //         endTime:{endTime}
-    // //     });
+        task.target.title.reset();
 
-    // // }
+    }
+
 
 
 
 
     const submitTodo = (e) => {
         e.preventDefault();
+
         if (e.target.title.value == ''){
             alert('Please add task')
         }else{
@@ -48,16 +46,15 @@ export default function AddTask ({addTask}) {
                 startTime: e.target.startTime.value,
                 endTime: e.target.endTime.value
             }
-
             addTask(data)
+            setInputTask('');
+            setEndTime('');
+            setInputDate('');
+            setStartTime('');
         }
+
         
     } 
-
-
-
-
-
 
 
     return (
@@ -71,6 +68,8 @@ export default function AddTask ({addTask}) {
                                 id={styles.inputTask} 
                                 type={'string'} 
                                 placeholder={'Input Task'}
+                                value={inputTask}
+                                onChange={(e)=>{setInputTask(e.target.value)}}
                                 name="title"
                                 />
                             <input 
@@ -78,20 +77,29 @@ export default function AddTask ({addTask}) {
                                 id={styles.otherInput} 
                                 type={'date'} 
                                 placeholder={'Date'} 
+                                value={inputDate}
+                                onChange={(e)=>{setInputDate(e.target.value)}}
+
                                 name="date"
                                 />
                             <input 
                                 className='col-sm-4 col-md-3 col-lg-3' 
                                 id={styles.otherInput} 
                                 type={'time'} 
-                                placeholder={'Start Time'} 
+                                placeholder={'Start Time'}
+                                value={startTime}
+                                onChange={(e)=>{setStartTime(e.target.value)}}
+
                                 name="startTime"
                                 />
                             <input 
                                 className='col-sm-4 col-md-3 col-lg-3' 
                                 id={styles.otherInput} 
                                 type={'time'} 
+                                value={endTime}
                                 placeholder={'End Time'} 
+                                onChange={(e)=>{setEndTime(e.target.value)}}
+
                                 name="endTime"
                                 />
                         </div>
