@@ -1,0 +1,104 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  /* min-height: 100vh; */
+}
+
+
+.taskInput{
+ display: flex;
+ width:50vh;
+ /* height: 2rem; */
+}
+#inputTask{
+  height: 3.5rem;
+  border: 0mm;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 10px;
+ background-color: rgb(202, 201, 201);
+}
+
+
+#otherInput{
+  margin: 5px;
+  border: 0mm;
+  border-radius: 5px;
+  padding: 10px;
+ background-color: rgb(202, 201, 201);
+}
+
+#addBtn{
+  border: 0mm;
+  height: 5rem;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+}
+
+#list{
+  border-radius: 5px;
+  padding: 10px;
+  background-color: gray;
+  color: white;
+}
+
+ul.todo_list{
+  padding: 0px;
+  list-style: none;
+}
+
+.listDisplay{
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-block: 10px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon{
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+
+.dropdown_content {
+  background-color: #f1f1f1;
+  color: black;
+  min-width: 110px;
+  border: none;
+  border-radius: 3px;
+  /* padding-inline:30%; */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.Item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+}
+.dropdown_content :hover {
+  border: none;
+  background-color: lightgray;
+  color: black;
+}
+/* .Item button{
+  width: 60px;
+  height: 100%;
+  border: none;
+  color: black;
+} */
