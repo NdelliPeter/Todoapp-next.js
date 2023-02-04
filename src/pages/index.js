@@ -13,16 +13,17 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
+  // const initialState = JSON.parse(localStorage.getItem("todoData")) || [];
+
   const [todos, setTodos] = useState([]);
   const [editTodo, setEditTodo] = useState(null)
   
   const addTask=(data)=>{
-    const currentTodo = [...todos, data]
-    setTodos(currentTodo)
+    const currentTodo = [data, ...todos]
+    console.log(currentTodo);
+    setTodos(currentTodo) 
     localStorage.setItem("todoData", JSON.stringify(currentTodo))
   }
-
-
 
   useEffect(() => {
     /**
@@ -31,7 +32,44 @@ export default function Home() {
     const objectData =  localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
     setTodos( objectData)
     console.log(objectData);
-}, []);
+  }, []);
+
+  const  deleteTask = (todo) => {
+        
+    const deleteTodo = todos.filter((todoitem) => (todos.indexOf(todoitem) !== todos.indexOf(todo)))
+
+    console.log('HHHHHHHH', deleteTodo);
+
+    setTodos(deleteTodo);
+
+    localStorage.setItem("todoData", JSON.stringify(deleteTodo))
+}
+
+
+const editTask = (todo) => {
+
+  const deleteTodo = todos.filter((todoitem) => (todos.indexOf(todoitem) !== todos.indexOf(todo)))
+
+  const edit = todos.find((todoitem) => (todos.indexOf(todoitem) == todos.indexOf(todo)))
+  console.log(edit);
+  setTodos(deleteTodo)
+  setEditTodo(edit);
+}
+
+// const doneTask = (todo) => {
+//   const done = todos.find((todoitem) => {
+//     if(todos.indexOf(todoitem) == todos.indexOf(todo)) {
+//       return {todo}
+//     }
+//     return todo;
+//   })
+//   setTodos(done)
+// }
+
+  // useEffect(() => {
+  //   localStorage.setItem("todoData", JSON.stringify(todos))
+  // }, [todos]);
+
   return (
     <>
       <Head>
@@ -43,15 +81,18 @@ export default function Home() {
       <main className={styles.main}>
         <h1>TODO LIST</h1>
         <AddTask 
+        todos={todos}
         addTask={addTask} 
         setTodos={setTodos}
-        editTodo={editTodo} 
-        setEditTodo={setEditTodo} 
+        editTodo={editTodo}
+        setEditTodo={setEditTodo}
         />
         <TodoList 
         todos={todos} 
         setTodos={setTodos} 
-        setEditTodo={setEditTodo} 
+        deleteTask={deleteTask}
+        editTask={editTask}
+        // doneTask={doneTask}
         />
       </main>
     </>

@@ -60,6 +60,9 @@ ul.todo_list{
   justify-content: space-between;
   align-items: center;
 }
+.line_through {
+  text-decoration: line-through;
+}
 .icon{
   font-size: xx-large;
   font-weight: bold;
@@ -95,6 +98,11 @@ ul.todo_list{
   border: none;
   background-color: lightgray;
   color: black;
+}
+
+
+#target {
+  text-decoration: line-through;
 }
 /* .Item button{
   width: 60px;

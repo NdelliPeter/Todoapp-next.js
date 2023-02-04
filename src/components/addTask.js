@@ -2,14 +2,23 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from '@/styles/Home.module.css'
 import { useState, useEffect, useRef } from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { v4 as uuidv4} from 'uuid'
 
 
 
 
+export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, setEditTodo}) {
 
-export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTodo}) {
+    function func() {
+        function ff(s) {
+            var pt = (Math.random().toString(16)+"000000000").substr(2,8);
+            return s ? "-" + pt.substr(0,4) + "-" + pt.substr(4,4) : pt ;
+        }
+        return ff() + ff(true) + ff(true) + ff();
+    }
+    const id =func()
 
-
+ 
     const [inputTask, setInputTask] = useState('')
     const [inputDate, setInputDate] = useState('')
     const [startTime, setStartTime] = useState('')
@@ -23,7 +32,7 @@ export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTod
     // const endTimeRef =useRef(null);
 
     const handleTask = (task) =>{
-        console.log(handleTask);
+        // console.log(handleTask);
         task.preventDefault()
 
         task.target.title.reset();
@@ -31,12 +40,13 @@ export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTod
     }
 
 
-    const updatedList = (title, date, startTime, endTime) => {
-        const newTodo =todos.map((todoItem) => {
-            todos.indexOf(todoItem) == todos.indexOf(todos) ? {title, date, startTime, endTime} : todoItem
-        })
-        setTodos(newTodo)
-        setEditTodo("")
+    const editUpdate = (id, title, date, startTime, endTime) => {
+        console.log( 'pppppp',todos);
+
+        const newTodo ={id, title, date, startTime, endTime} 
+        
+        addTask(newTodo)
+        setEditTodo('')
     }
 
 
@@ -56,19 +66,21 @@ export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTod
 
     },[setInputTask, setInputDate, setStartTime, setEndTime, editTodo] )
 
-    const submitTodo = (e) => {
+    const submitTodo = (e) => {  
         e.preventDefault();
 
-        if(!editTodo){
+        if (!editTodo) {
             if (e.target.title.value == '' || e.target.title.value == '   ' || e.target.date.value == '' || e.target.startTime.value == '' || e.target.endTime.value == ''){
                 alert('Please fill the entire form')
             }else{
                 const data = {
+                    id: id,
                     title:e.target.title.value,
                     date: e.target.date.value,
                     startTime: e.target.startTime.value,
                     endTime: e.target.endTime.value
                 }
+                console.log(data);
                 addTask(data)
                 setInputTask('');
                 setEndTime('');
@@ -76,8 +88,11 @@ export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTod
                 setStartTime('');
             }
         }else {
-            updatedList(inputTask, inputDate, startTime, endTime)
+            console.log(' tytttttt',e.target.title.value, e.target.date.value, e.target.startTime.value, e.target.endTime.value );
+
+            editUpdate(id,e.target.title.value, e.target.date.value, e.target.startTime.value, e.target.endTime.value )
         }
+
     } 
 
 
@@ -103,7 +118,6 @@ export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTod
                                 placeholder={'Date'} 
                                 value={inputDate}
                                 onChange={(e)=>{setInputDate(e.target.value)}}
-
                                 name="date"
                                 />
                             <input 
@@ -113,7 +127,6 @@ export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTod
                                 placeholder={'Start Time'}
                                 value={startTime}
                                 onChange={(e)=>{setStartTime(e.target.value)}}
-
                                 name="startTime"
                                 />
                             <input 
@@ -123,20 +136,17 @@ export default function AddTask ({addTask, todos, setTodos, editTodo, setEditTod
                                 value={endTime}
                                 placeholder={'End Time'} 
                                 onChange={(e)=>{setEndTime(e.target.value)}}
-
                                 name="endTime"
                                 />
                         </div>
-
                         <div className='col-sm-8 col-md-3 col-lg-3'>
                             <button 
                                 type='summit'
                                 className='col-sm-12 col-md-12 col-lg-12' 
                                 id={styles.addBtn}
-                            >{editTodo ? 'EDIT' : 'ADD' }</button> 
+                            >{editTodo ? 'Edit' : 'ADD'}</button> 
                         </div>
                     </div>
-
                 </form>
    
             </div>
