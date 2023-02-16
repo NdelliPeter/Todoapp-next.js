@@ -1,16 +1,17 @@
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from '@/styles/Home.module.css'
 import { useState, useEffect } from 'react'
-import { BsThreeDotsVertical } from "react-icons/bs";
-import * as DropdowonMenu from '@radix-ui/react-dropdown-menu'
+import { BsThreeDotsVertical, BsFillCheckCircleFill } from "react-icons/bs";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 
 
 function TodoList ({todos, setTodos, deleteTask, editTask, }) {
 
-    
-    // const [todo, setTodo] = useState([])
 
+    // const [bookmarksChecked, setBookmarksChecked] = useState(false);
+    const [doneTodo, setDoneTodo] =useState(false)
 
     // useEffect(() => {
     //     /**
@@ -21,27 +22,32 @@ function TodoList ({todos, setTodos, deleteTask, editTask, }) {
     //     console.log(objectData);
     // }, []);
 
-    
-    // const  deleteTask = (todo) => {
-        
-    //     const deleteTodo = todos.filter((todoitem) => (todos.indexOf(todoitem) !== todos.indexOf(todo)))
 
-    //     console.log('HHHHHHHH', deleteTodo);
-
-    //     setTodos(deleteTodo);
-    
-    //     localStorage.setItem("todoData", JSON.stringify(deleteTodo))
-    // }
 
     const doneTask = (todo) => {
-        const done = todos.map((todoitem) => {
-          if(todos.indexOf(todoitem) == todos.indexOf(todo)) {
-            return (true, todo);
-          }
-          return (false, todoitem);
-        })
+        // const done = todos.find((todoitem) => (todos.indexOf(todoitem) == todos.indexOf(todo)))
+        // done.complete
+
+        // console.log(done);
+        // const done = todos.map((todoitem) => {
+        //     todos.indexOf(todoitem) == todos.indexOf(todo)
+        //        return todoitem, setDoneTodo(true)
+        // })
+        const done= todos.map((todoitem) => {
+            if(todos.indexOf(todoitem) == todos.indexOf(todo)){
+                return {...todoitem, complete: !todoitem.complete} 
+                      
+            }else{
+                return todoitem
+            }
+               
+        }) 
+        console.log(done);
         setTodos(done)
+        // localStorage.setItem("todoData", JSON.stringify(done))
     }
+
+    const complete = doneTodo ? styles.line_through: '';
 
 
 
@@ -57,38 +63,39 @@ function TodoList ({todos, setTodos, deleteTask, editTask, }) {
                                         
                                         ((todos?.length ?? 0) >= 1) ? todos.map((todo, id) =>{                                            
                                             return (
-                                                <div key={id} className={
-                                                    (doneTask.true) ? styles.listDisplay + ' ' + styles.line_through
-                                                    : styles.listDisplay }>
+                                                <div key={id} className={`${styles.listDisplay} ${todo.complete ? styles.line_through :''}`}>
                                                     <li>
-                                                        <span> <b key="task">Task:</b> {todo?.title} <br/> </span>
-                                                        <span> <b key="date">Date:</b> {todo?.date} </span>
-                                                        <span> <b key="startTime">StartTime:</b> {todo?.startTime} </span>
-                                                        <span> <b key="endTime">EndTime:</b> {todo?.endTime} </span>
+                                                        <span> <b >Task:</b> {todo?.title} <br/> </span>
+                                                        <span> <b >Date:</b> {todo?.date} </span>
+                                                        <span> <b >StartTime:</b> {todo?.startTime} </span>
+                                                        <span> <b >EndTime:</b> {todo?.endTime} </span>
                                                     </li>
                                                     <div>
-                                                        <DropdowonMenu.Root>
-                                                            <DropdowonMenu.Trigger className={styles.dropbtn}><BsThreeDotsVertical className={styles.icon} /></DropdowonMenu.Trigger>
-
-                                                            <DropdowonMenu.Content className={styles.dropdown_content}>
-                                                                <DropdowonMenu.Item className={styles.Item} onClick={(e) =>{
-                                                                    e.preventDefault();
-                                                                    doneTask(todo)}}> Done</DropdowonMenu.Item>
-                                                                <DropdowonMenu.Item className={styles.Item} onClick={(e) =>{
-                                                                    e.preventDefault();
-                                                                    editTask(todo)}}>Edit</DropdowonMenu.Item>
-                                                                <DropdowonMenu.Item className={styles.Item} onClick={(e) =>{
-                                                                    e.preventDefault();
-                                                                    deleteTask(todo)}}> Delete</DropdowonMenu.Item>
-                                                            </DropdowonMenu.Content>  
-                                                        </DropdowonMenu.Root>
+                                                        <DropdownMenu.Root>
+                                                            <DropdownMenu.Trigger className={styles.dropbtn}  asChild>
+                                                                <button aria-label="Customise options">
+                                                                <BsThreeDotsVertical className={styles.icon} />
+                                                                </button>
+                                                            </DropdownMenu.Trigger>
+                                                            <DropdownMenu.Portal>
+                                                                <DropdownMenu.Content className={styles.dropdown_content} sideOffset={5}>
+                                                                    <DropdownMenu.Item className={styles.Item} onClick={() =>{
+                                                                        doneTask(todo)}}>Done</DropdownMenu.Item>
+                                                                    <DropdownMenu.Item className={styles.Item} onClick={() =>{
+                                                                        editTask(todo)}}>Edit</DropdownMenu.Item>
+                                                                    <DropdownMenu.Item className={styles.Item} onClick={() =>{                           
+                                                                        deleteTask(todo)}}>Delete</DropdownMenu.Item>
+                                                                </DropdownMenu.Content>
+                                                            </DropdownMenu.Portal>
+                                                        </DropdownMenu.Root>
+                                                        
                                                     </div>
                                                 </div>
                                             )
                                         })
                                         : <div>
-                                            <h5>Wating For You To Enter Task</h5>
-                                        </div>
+                                            <h6>Wating For You To Enter Task</h6>
+                                          </div>
                                     }
                                 </ul>
                             </div>

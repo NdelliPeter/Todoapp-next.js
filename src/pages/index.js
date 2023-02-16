@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import AddTask from '../components/addTask'
 import TodoList from '../components/todoList'
 import { useState, useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+
 
 
 
@@ -13,11 +15,13 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  // const initialState = JSON.parse(localStorage.getItem("todoData")) || [];
-
   const [todos, setTodos] = useState([]);
   const [editTodo, setEditTodo] = useState(null)
   
+
+
+
+  // To add todos and save to the local storage
   const addTask=(data)=>{
     const currentTodo = [data, ...todos]
     console.log(currentTodo);
@@ -25,21 +29,11 @@ export default function Home() {
     localStorage.setItem("todoData", JSON.stringify(currentTodo))
   }
 
-  useEffect(() => {
-    /**
-     * On page load we need to check if todoData exist in the local storage and if it exist we get the value and set it to the todo value
-     */
-    const objectData =  localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
-    setTodos( objectData)
-    console.log(objectData);
-  }, []);
 
+  // To delete todo and save to localStorage
   const  deleteTask = (todo) => {
         
     const deleteTodo = todos.filter((todoitem) => (todos.indexOf(todoitem) !== todos.indexOf(todo)))
-
-    console.log('HHHHHHHH', deleteTodo);
-
     setTodos(deleteTodo);
 
     localStorage.setItem("todoData", JSON.stringify(deleteTodo))
@@ -52,23 +46,18 @@ const editTask = (todo) => {
 
   const edit = todos.find((todoitem) => (todos.indexOf(todoitem) == todos.indexOf(todo)))
   console.log(edit);
-  setTodos(deleteTodo)
+  setTodos(deleteTodo) 
   setEditTodo(edit);
 }
 
-// const doneTask = (todo) => {
-//   const done = todos.find((todoitem) => {
-//     if(todos.indexOf(todoitem) == todos.indexOf(todo)) {
-//       return {todo}
-//     }
-//     return todo;
-//   })
-//   setTodos(done)
-// }
+useEffect(() => {
+  /**
+   * On page load we need to check if todoData exist in the local storage and if it exist we get the value and set it to the todo value
+   */
+  const objectData =  localStorage.getItem("todoData")
+  setTodos(objectData ? JSON.parse(objectData) : [])
 
-  // useEffect(() => {
-  //   localStorage.setItem("todoData", JSON.stringify(todos))
-  // }, [todos]);
+},[setTodos]);
 
   return (
     <>
@@ -92,7 +81,6 @@ const editTask = (todo) => {
         setTodos={setTodos} 
         deleteTask={deleteTask}
         editTask={editTask}
-        // doneTask={doneTask}
         />
       </main>
     </>
