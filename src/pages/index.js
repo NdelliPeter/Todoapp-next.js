@@ -74,6 +74,7 @@ useEffect(() => {
         addTask={addTask} 
         setTodos={setTodos}
         editTodo={editTodo}
+        deleteTask={deleteTask}
         setEditTodo={setEditTodo}
         />
         <TodoList 

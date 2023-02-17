@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import {useForm} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import moment from 'moment'
-import {Date} from 'yup'
-import parse from 'date-fns' 
+import moment, { localeData, now } from 'moment'
+// import {Date} from 'yup'
+import parse, { format } from 'date-fns' 
 
 // const moment =require("moment");
 // moment().format("MM DD YYYY")
@@ -14,14 +14,14 @@ import parse from 'date-fns'
 
 
 
-export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, setEditTodo}) {
+export default function AddTask ({addTask, todos, setTodos, deleteTask, editTodo, setEditTodo}) {
 
     // console.log(editTodo);
 
     const schema = yup.object().shape({
         title: yup.string()
         .trim('Please input task cannot contain just spaces')
-        .required('please fill in a Task properly'),
+        .required('please fill in a Task'),
         date: yup.string().required('Please input Date'),
         startTime: yup.string().required(),
         endTime: yup.string()
@@ -30,7 +30,6 @@ export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, 
           const { startTime } = this.parent;
           return moment(value, "HH:mm").isSameOrAfter(moment(startTime, "HH:mm"));
         })
-        // complete: yup.boolean(false)
     }).required()
     
 
@@ -57,14 +56,6 @@ export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, 
     const [endTime, setEndTime] = useState('')
 
 
-    // const editUpdate = (data) => {
-    //     const newTodo ={data}
-    //     addTask(newTodo)
-    //     setEditTodo('')
-    // }
-
-
-
     useEffect (() => {
         if(editTodo) {
             setInputTask(setValue('title', editTodo.title ) )
@@ -77,10 +68,11 @@ export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, 
             setInputDate('')
             setStartTime('')
             setEndTime('')
-
         }
 
     },[setInputTask, setInputDate, setStartTime, setEndTime, editTodo] )
+
+
 
     const submitTodo = (data) => {
         // console.log(data);
@@ -113,65 +105,53 @@ export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, 
             addTask(data)
             reset()            
         }else {
+            // const deleteTodo = todos.filter((todoitem) => (todos.indexOf(todoitem) !== todos.indexOf(editTodo)))
+            // setTodos(deleteTodo)
             addTask(data)
             reset()
             setEditTodo('')
-    }
+        }
 
-        // if (!editTodo) {
-        //     if (e.target.title.value == '' || e.target.title.value == '   ' || e.target.date.value == '' || e.target.startTime.value == '' || e.target.endTime.value == ''){
-        //         alert('Please fill the entire form')
-        //     }else{
-        //         const data = {
-        //             id: id,
-        //             title:e.target.title.value,
-        //             date: e.target.date.value,
-        //             startTime: e.target.startTime.value,
-        //             endTime: e.target.endTime.value
-        //         }
-        //         console.log(data);
-        //         addTask(data)
-        //         setInputTask('');
-        //         setEndTime('');
-        //         setInputDate('');
-        //         setStartTime('');
-        //     }
-        // }else {
-        //     editUpdate(id,e.target.title.value, e.target.date.value, e.target.startTime.value, e.target.endTime.value )
-        // }
     } 
 
-
+    const today = new Date()
+    let dd = today.getDate()
+    let mm = today.getMonth() + 1
+    const yyyy = today.getFullYear()
+    let day = (`${dd} ${mm} ${yyyy}`)
+    // console.log(dd, mm, yyyy);
+    console.log(day);
+ 
     return (
         <>
             <div className='container-fluid mt-5 d-flex justify-content-center align-items-center'>
                 <form id='addTaskForm' className='row justify-content-center align-items-center' onSubmit={handleSubmit(submitTodo)}>
                     
-                            <div className='col-sm-12 col-md-10 col-lg-10 '>
+                            <div className='col-12 col-sm-12 col-md-10 col-lg-10 '>
                                 <input 
-                                    className='col-sm-12 col-md-12 col-lg-12 ' 
+                                    className='col-12 col-sm-12 col-md-12 col-lg-12 ' 
                                     id={styles.inputTask} 
                                     type={'string'} 
                                     placeholder={'Input Task'}
-                                    {...register('title', {value: inputTask})}
+                                    {...register('title', {value: inputTask })}
                                     /><br/>
                                     {errors.title && <span className='text-danger font-strong'>{errors.title.message}</span>}
                             </div>
                             
-                            <div className='col-sm-12 col-md-3 col-lg-3' >
+                            <div className='col-12 col-sm-12 col-md-3 col-lg-3' >
                                 <input 
-                                    className='col-sm-12 col-md-12 col-lg-12' 
+                                    className='col-12 col-sm-12 col-md-12 col-lg-12' 
                                     id={styles.otherInput} 
                                     type={'date'} 
                                     placeholder={'Date'} 
-                                    {...register('date', {value: inputDate})}                                
+                                    {...register('date', {value: inputDate ?? day})}                           
                                     /><br/>
                                     {errors.date && <span className='text-danger'>{errors.date.message}</span>}
                             </div>
 
-                            <div className='col-sm-12 col-md-3 col-lg-3' >
+                            <div className='col-12 col-sm-12 col-md-3 col-lg-3' >
                                 <input 
-                                    className='col-sm-12 col-md-12 col-lg-12' 
+                                    className='col-12 col-sm-12 col-md-12 col-lg-12' 
                                     id={styles.otherInput} 
                                     type={'time'} 
                                     placeholder={'Start Time'}
@@ -180,9 +160,9 @@ export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, 
                                     {errors.startTime && <span className='text-danger'>{errors.startTime.message}</span>}
                             </div>
 
-                            <div className='col-sm-12 col-md-3 col-lg-3'>
+                            <div className='col-12 col-sm-12 col-md-3 col-lg-3'>
                                 <input 
-                                    className='col-sm-12 col-md-12 col-lg-12' 
+                                    className='col-12 col-sm-12 col-md-12 col-lg-12' 
                                     id={styles.otherInput} 
                                     type={'time'} 
                                     placeholder={'End Time'} 
@@ -191,12 +171,12 @@ export default function AddTask ({addTask, todos, setTodos, editTask, editTodo, 
                                     {errors.endTime && <span className='text-danger'>{errors.endTime.message}</span>}
                             </div>
 
-                            <div className='col-sm-12 col-md-9 col-lg-9' >
+                            <div className='col-12 col-sm-12 col-md-9 col-lg-9' >
                                 <button 
                                     type='summit'
-                                    className='col-sm-12 col-md-12 col-lg-12' 
+                                    className='col-12 col-sm-12 col-md-12 col-lg-12' 
                                     id={styles.addBtn}
-                                >{editTodo ? 'Edit' : 'ADD'}</button> 
+                                >{editTodo ? 'UPDATE' : 'ADD'}</button> 
                             </div>
     
                     

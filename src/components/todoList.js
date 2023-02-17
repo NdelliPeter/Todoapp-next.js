@@ -9,30 +9,8 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 function TodoList ({todos, setTodos, deleteTask, editTask, }) {
 
-
-    // const [bookmarksChecked, setBookmarksChecked] = useState(false);
-    const [doneTodo, setDoneTodo] =useState(false)
-
-    // useEffect(() => {
-    //     /**
-    //      * On page load we need to check if todoData exist in the local storage and if it exist we get the value and set it to the todo value
-    //      */
-    //     const objectData =  localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
-    //     setTodos( objectData)
-    //     console.log(objectData);
-    // }, []);
-
-
-
     const doneTask = (todo) => {
-        // const done = todos.find((todoitem) => (todos.indexOf(todoitem) == todos.indexOf(todo)))
-        // done.complete
 
-        // console.log(done);
-        // const done = todos.map((todoitem) => {
-        //     todos.indexOf(todoitem) == todos.indexOf(todo)
-        //        return todoitem, setDoneTodo(true)
-        // })
         const done= todos.map((todoitem) => {
             if(todos.indexOf(todoitem) == todos.indexOf(todo)){
                 return {...todoitem, complete: !todoitem.complete} 
@@ -44,11 +22,8 @@ function TodoList ({todos, setTodos, deleteTask, editTask, }) {
         }) 
         console.log(done);
         setTodos(done)
-        // localStorage.setItem("todoData", JSON.stringify(done))
+        localStorage.setItem("todoData", JSON.stringify(done))
     }
-
-    const complete = doneTodo ? styles.line_through: '';
-
 
 
     return (
@@ -93,7 +68,7 @@ function TodoList ({todos, setTodos, deleteTask, editTask, }) {
                                                 </div>
                                             )
                                         })
-                                        : <div>
+                                        : <div className='d-flex justify-content-center align-items-center'>
                                             <h6>Wating For You To Enter Task</h6>
                                           </div>
                                     }
