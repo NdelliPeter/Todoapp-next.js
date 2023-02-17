@@ -144,7 +144,7 @@ export default function AddTask ({addTask, todos, setTodos, deleteTask, editTodo
                                     id={styles.otherInput} 
                                     type={'date'} 
                                     placeholder={'Date'} 
-                                    {...register('date', {value: inputDate ?? day})}                           
+                                    {...register('date', {value: inputDate ?? setInputDate(day)})}                           
                                     /><br/>
                                     {errors.date && <span className='text-danger'>{errors.date.message}</span>}
                             </div>
