@@ -39,11 +39,15 @@ function TodoList ({todos, setTodos, deleteTask, editTask, }) {
                                         ((todos?.length ?? 0) >= 1) ? todos.map((todo, id) =>{                                            
                                             return (
                                                 <div key={id} className={`${styles.listDisplay} ${todo.complete ? styles.line_through :''}`}>
-                                                    <li>
-                                                        <span> <b >Task:</b> {todo?.title} <br/> </span>
-                                                        <span> <b >Date:</b> {todo?.date} </span>
-                                                        <span> <b >StartTime:</b> {todo?.startTime} </span>
-                                                        <span> <b >EndTime:</b> {todo?.endTime} </span>
+                                                    <li className='row'>
+                                                        <span className='col-12 col-sm-12 col-md-12 col-lg-12'> <b >Task:</b> {todo?.title} <br/> </span>
+                                                        <div className='col-12 col-sm-12 col-md-12 col-lg-12'>
+                                                            <div className='row d-flex justify-content-center align-items-center'>
+                                                                <div className='col-12 col-sm-12 col-md-4 col-lg-4'> <b >Date:</b> {todo?.date} </div>
+                                                                <div className='col-7 col-sm-6 col-md-4 col-lg-4'> <b >StartTime:</b> {todo?.startTime} </div>
+                                                                <div className='col-7 col-sm-6 col-md-4 col-lg-4'> <b >EndTime:</b> {todo?.endTime} </div>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                     <div>
                                                         <DropdownMenu.Root>

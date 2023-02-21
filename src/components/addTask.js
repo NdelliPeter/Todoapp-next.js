@@ -21,7 +21,7 @@ export default function AddTask ({addTask, todos, setTodos, deleteTask, editTodo
     const schema = yup.object().shape({
         title: yup.string()
         .trim('Please input task cannot contain just spaces')
-        .required('please fill in a Task'),
+        .required('please fill in a Task properly'),
         date: yup.string().required('Please input Date'),
         startTime: yup.string().required(),
         endTime: yup.string()
